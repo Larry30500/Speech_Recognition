@@ -34,6 +34,7 @@
   ```
   
 ### 2. 當 Google Speech Recognition 辨識出對話內容後，執行以下的命令
+* 如果字串為 退出 或 exit，則退出程式
   ```python
   if any(x in your_command for x in ['網站導覽', '第一']):
     ⋮
@@ -53,7 +54,9 @@
   ![speech_recognition02](images/speech_recognition02.gif)
 
 ### 3. 網站導覽服務
+* 根據語音辨識後的中文字串，導覽對應的網站
 * 如果中文字串為 退出 或 exit，則退出程式
+* 如果中文字串內容，不在設定範圍內，則顯示：輸入錯誤，目前提供的服務，謝謝使用
   ```python
   def open_website_service():
     ⋮
@@ -82,7 +85,7 @@
       ⋮
   ```
     
-* 再檢查翻譯後的運算式，是否使用未允許的字元，是則進行數學運算；否則顯示輸入錯誤
+* 檢查翻譯後的運算式，是否使用未允許的字元，是則進行數學運算；否則顯示輸入錯誤
 * 如果字串為 退出 或 exit，則退出程式
   ```python
   def arithmetic_service():
@@ -105,6 +108,26 @@
   ```
   
   ![arithmetic01](images/arithmetic01.gif)
+
+### 5. 插入多執行續，語音辨識等待過程，出現 ... 字元 ，讓使用者了解程式還在辨識中。
+  ```python
+  multi_threading = threading.Thread(target = display_while_waiting).start()
+  ```
+  
+* 建立子執行緒所對應的函式，將於語音辨識等待過程中執行
+  ```python   
+  def display_a_dot():
+    ⋮
+    time.sleep(1)
+    print('.', end = '')
+    ⋮  
+  def display_while_waiting():
+    print(語音辨識中，請稍等)
+    ⋮ 
+    display_a_dot()  
+  ```
+  
+  
 
 
 ## 系統環境
