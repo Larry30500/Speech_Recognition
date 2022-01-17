@@ -63,7 +63,7 @@
       
       if any(x in your_command for x in ['google', '谷歌']):
         ⋮
-        瀏覽 Google 網頁
+        webbrowser.open(Google 網頁)
       ⋮
       else: print(目前網站導覽服務僅提供：開啟 Google、Microsoft、Python、Wiki 官方網頁的服務，謝謝使用。)  
   ```
