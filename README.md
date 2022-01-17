@@ -109,11 +109,7 @@
   
   ![arithmetic01](images/arithmetic01.gif)
 
-### 5. 插入多執行續，語音辨識等待過程，出現 ... 字元 ，讓使用者了解程式還在辨識中。
-  ```python
-  multi_threading = threading.Thread(target = display_while_waiting).start()
-  ```
-  
+### 5. 插入多執行續，語音辨識等待過程，出現 ... 字元 ，讓使用者了解程式還在辨識中。 
 * 建立子執行緒所對應的函式，將於語音辨識等待過程中執行
   ```python   
   def display_a_dot():
@@ -126,8 +122,10 @@
     ⋮ 
     display_a_dot()  
   ```
-  
-  
+* 於 Google Speech Recognition 語音辨識過程中，啟動子執行緒
+  ```python
+  multi_threading = threading.Thread(target = display_while_waiting).start()
+  ```
 
 
 ## 系統環境
