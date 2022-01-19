@@ -22,18 +22,18 @@
 
 
 ## 重點程式碼說明
-### 1. 於麥克風獲取音訊，並使用 Google 語音辨識模組
+### 1. 於麥克風獲取音訊，並使用 Google 語音辨識模組。
   ```python
   r = sr.Recognizer()
   with sr.Microphone() as source:
     audio = r.listen(source)
 
   try: your_command = r.recognize_google(audio)
-  except sr.UnknownValueError: print('Google Speech Recognition 無法辨識您說的話')
+  except sr.UnknownValueError: print('Google Speech Recognition 無法辨識您說的話。')
   ⋮
   ```
   
-### 2. 當 Google Speech Recognition 辨識出對話內容後，執行以下的命令
+### 2. 當 Google Speech Recognition 辨識出對話內容後，執行以下的命令。
   ```python
   print('歡迎使用「語音辨識服務」，本程式提供 (1)網站導覽服務 (2)四則運算服務，請問您想要使用哪一種服務？\n(如果想要「退出程式」，請說 exit 或 退出。)\n')
   
@@ -53,9 +53,9 @@
   ![speech_recognition02](images/speech_recognition02.gif)
 
 ### 3. 網站導覽服務
-* 根據語音辨識後的中文字串，導覽對應的網站
-* 如果中文字串為 退出 或 exit，則退出程式
-* 如果中文字串內容，不在設定範圍內，則顯示：輸入錯誤，目前提供的服務，謝謝使用
+* 根據語音辨識後的中文字串，導覽對應的網站。
+* 如果中文字串為 退出 或 exit，則退出程式。
+* 如果中文字串內容，不在設定範圍內，則顯示：輸入錯誤，目前提供的服務，謝謝使用。
   ```python
   def open_website_service():    
     while True:
@@ -64,18 +64,18 @@
       google_recognizer()
       
       if any(x in your_command for x in ['google', '谷歌']):
-        print('即將為您開啟 Google 官方網頁。')
-        webbrowser.open(Google 網頁)
+        print('即將為您開啟 Google 官方網站。')
+        webbrowser.open('Google 網站')
         
       ⋮
       
-      else: print('目前網站導覽服務僅提供：開啟 Google、Microsoft、Python、Wiki 官方網頁的服務，謝謝使用。')  
+      else: print('目前網站導覽服務僅提供：開啟 Google、Microsoft、Python、Wiki 官方網站的服務，謝謝使用。')  
   ```
 
   ![url01](images/url01.gif)
   
 ### 4. 數學運算服務
-* 先將中文字串翻譯成具有數字和特定運算符號的運算式
+* 先將中文字串翻譯成具有數字和特定運算符號的運算式。
   ```python
   def translate_into_expressions():
     ⋮
@@ -88,15 +88,15 @@
     return your_command
   ```
     
-* 檢查翻譯後的運算式，是否使用未允許的字元，是則進行數學運算；否則顯示輸入錯誤
-* 如果字串為 退出 或 exit，則退出程式
+* 檢查翻譯後的運算式，是否使用未允許的字元，是則進行數學運算；否則顯示輸入錯誤。
+* 如果字串為 退出 或 exit，則退出程式。
   ```python
   def arithmetic_service():
     print('歡迎使用「四則運算服務」，目前僅接受「加、減、乘、除、次方、左側小括號、右側小括號」之運算功能。\n請說出您想要計算的公式！\n(如果想要「退出本服務」，請說 exit 或 退出。)\n')
     
     google_recognizer()
     
-    # 將中文字串翻譯成具有數字和特定運算符號的運算式
+    # 將中文字串翻譯成具有數字和特定運算符號的運算式。
     translate_into_expressions()
     
     print(f'翻譯的結果為：{your_command}\n')
@@ -119,13 +119,13 @@
       print('即將退出四則運算服務，並返回語音辨識主選單，謝謝使用。')
       break
            
-    else: print('輸入錯誤，目前僅提供：加、減、乘、除、次方、左小括號、右小括號 的四則運算服務，謝謝使用')
+    else: print('輸入錯誤，目前僅提供：加、減、乘、除、次方、左小括號、右小括號 的四則運算服務，謝謝使用。')
   ```
   
   ![arithmetic01](images/arithmetic01.gif)
 
 ### 5. 插入多執行續，語音辨識等待過程，出現 ... 字元 ，讓使用者了解程式還在辨識中。 
-* 建立子執行緒所對應的函式，將於語音辨識等待過程中執行
+* 建立子執行緒所對應的函式，將於語音辨識等待過程中執行。
   ```python   
   def display_a_dot():
     ⋮
@@ -135,20 +135,20 @@
     ⋮
     
   def display_while_waiting():
-    print('語音辨識中，請稍等')
+    print('語音辨識中，請稍等。')
     ⋮
     
     display_a_dot()  
   ```
   
-* 並於 Google Speech Recognition 語音辨識過程中，啟動子執行緒
+* 並於 Google Speech Recognition 語音辨識過程中，啟動子執行緒。
   ```python
   multi_threading = threading.Thread(target = display_while_waiting).start()
   ```
 
 
 ## 系統環境
-### 作業系統
+### 本程式所在作業系統
 * OS：Windows 7 / 10 (Mac OS、Linux 系統亦可相容)
 
 ### 相關套件
@@ -163,7 +163,7 @@
 
 
 ## 致謝
-*非常感謝指導老師 (Francesco Ke) 提供程式設計的靈感和方向，並細心指導學生編寫程式時，所需注重的細節。*
+*非常感謝指導老師 (Francesco Ke) 提供程式設計的靈感和方向，並充分教導程式設計的注意事項和相關細節。*
 
 *如果您喜歡此專案，記得點擊⭐️支持作者。*
 
