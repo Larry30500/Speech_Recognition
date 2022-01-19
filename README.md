@@ -29,26 +29,25 @@
     audio = r.listen(source)
 
   try: your_command = r.recognize_google(audio)
-  except sr.UnknownValueError: print("Google Speech Recognition 無法辨識您說的話")
+  except sr.UnknownValueError: print('Google Speech Recognition 無法辨識您說的話')
   ⋮
   ```
   
 ### 2. 當 Google Speech Recognition 辨識出對話內容後，執行以下的命令
-* 如果字串為 退出 或 exit，則退出程式
   ```python
+  print('歡迎使用「語音辨識服務」，本程式提供 (1)網站導覽服務 (2)四則運算服務，請問您想要使用哪一種服務？\n(如果想要「退出程式」，請說 exit 或 退出。)\n')
+  
   if any(x in your_command for x in ['網站導覽', '第一']):
-    ⋮
+    print('即將為您提供「網站導覽服務」。')
     open_website_service()
     
-  elif any(x in your_command for x in ['四則運算', '第二']):
-    ⋮
-    arithmetic_service()
+  ⋮
   
   elif any(x in your_command for x in ['exit', '退出']):
-    ⋮
+    print('即將退出程式，謝謝使用。')
     break
   
-  else: print(目前此程式僅提供：「網站導覽服務」和 「四則運算服務」，謝謝使用。)
+  else: print('目前此程式僅提供：「網站導覽服務」和 「四則運算服務」，謝謝使用。')
   ```
   
   ![speech_recognition02](images/speech_recognition02.gif)
@@ -58,17 +57,19 @@
 * 如果中文字串為 退出 或 exit，則退出程式
 * 如果中文字串內容，不在設定範圍內，則顯示：輸入錯誤，目前提供的服務，謝謝使用
   ```python
-  def open_website_service():
-    ⋮
+  def open_website_service():    
     while True:
-      ⋮
+      print('歡迎使用「網站導覽服務」，目前僅提供：開啟 谷歌 (google), 微軟 (microsoft), Python, 維基百科 (wiki) 等 4 個網站的首頁。\n請問您想要前往哪個網站？\n(如果想要「退出本服務」，請說 exit 或 退出。)\n')
+      
       google_recognizer()
       
       if any(x in your_command for x in ['google', '谷歌']):
-        ⋮
+        print('即將為您開啟 Google 官方網頁。')
         webbrowser.open(Google 網頁)
+        
       ⋮
-      else: print(目前網站導覽服務僅提供：開啟 Google、Microsoft、Python、Wiki 官方網頁的服務，謝謝使用。)  
+      
+      else: print('目前網站導覽服務僅提供：開啟 Google、Microsoft、Python、Wiki 官方網頁的服務，謝謝使用。')  
   ```
 
   ![url01](images/url01.gif)
@@ -78,18 +79,31 @@
   ```python
   def translate_into_expressions():
     ⋮
+    
     for i in range(len(replacement_words_list)):
-      ⋮
+      your_command = your_command.replace(replacement_words_list[i][0], replacement_words_list[i][1])      
       # 次方項使用正規表示式處理
       your_command = re.sub(r'的(\d+)次方', r'**\1', your_command)
-      ⋮
+      
+    return your_command
   ```
     
 * 檢查翻譯後的運算式，是否使用未允許的字元，是則進行數學運算；否則顯示輸入錯誤
 * 如果字串為 退出 或 exit，則退出程式
   ```python
   def arithmetic_service():
-    ⋮
+    print('歡迎使用「四則運算服務」，目前僅接受「加、減、乘、除、次方、左側小括號、右側小括號」之運算功能。\n請說出您想要計算的公式！\n(如果想要「退出本服務」，請說 exit 或 退出。)\n')
+    
+    google_recognizer()
+    
+    # 將中文字串翻譯成具有數字和特定運算符號的運算式
+    translate_into_expressions()
+    
+    print(f'翻譯的結果為：{your_command}\n')
+    
+    legal_expression = True
+    available_characters = '1234567890+-*/xX^()'
+    
     for index in range(len(your_command)):
       # 判別：如果使用未允許的字元，則 legal_expression = False
       if your_command[index] not in available_characters:
@@ -98,13 +112,14 @@
     
     if legal_expression:
       ⋮
-      print(四則運算式與計算結果為：\n 計算結束，謝謝使用。)
+      
+      print('四則運算式與計算結果為：\n 計算結束，謝謝使用。')
       
     elif any(x in your_command for x in ['exit', '退出']):
-      print(即將退出四則運算服務，並返回語音辨識主選單，謝謝使用。)
+      print('即將退出四則運算服務，並返回語音辨識主選單，謝謝使用。')
       break
            
-    else: print(輸入錯誤，目前僅提供：加、減、乘、除、次方、左小括號、右小括號 的四則運算服務，謝謝使用)
+    else: print('輸入錯誤，目前僅提供：加、減、乘、除、次方、左小括號、右小括號 的四則運算服務，謝謝使用')
   ```
   
   ![arithmetic01](images/arithmetic01.gif)
@@ -114,15 +129,19 @@
   ```python   
   def display_a_dot():
     ⋮
+    
     time.sleep(1)
     print('.', end = '')
-    ⋮  
+    ⋮
+    
   def display_while_waiting():
-    print(語音辨識中，請稍等)
-    ⋮ 
+    print('語音辨識中，請稍等')
+    ⋮
+    
     display_a_dot()  
   ```
-* 於 Google Speech Recognition 語音辨識過程中，啟動子執行緒
+  
+* 並於 Google Speech Recognition 語音辨識過程中，啟動子執行緒
   ```python
   multi_threading = threading.Thread(target = display_while_waiting).start()
   ```
