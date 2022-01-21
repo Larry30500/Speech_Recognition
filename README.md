@@ -20,7 +20,7 @@
 
 ![speech_recognition01](images/speech_recognition01.gif)
 
-<strong><em>若您有興趣想更了解此程式，請參考下方的聯絡方式，進一步聯絡作者，謝謝參閱。</em></strong>
+<strong><em>假使想要更加了解此程式的話，請參考本頁面底部之作者的聯絡方式。</em></strong>
 
 &nbsp;
 
