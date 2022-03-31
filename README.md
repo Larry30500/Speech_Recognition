@@ -18,7 +18,7 @@
 ### 1. 本作品內含語音辨識相關技術，可使用語音的方式進行 (1)網站導覽 (2)數學運算。
 ### 2. 語音辨識的處理過程中，加入子執行緒，每秒顯示 1 個 "." 字元，提示使用者語音尚在辨識處理中。
 
-![speech_recognition01](images/speech_recognition01.gif)
+![speech_recognition02](images/speech_recognition02.gif)
 
 <strong><em>假使想要更加了解此程式的話，請參考本頁面底部之作者的聯絡方式。</em></strong>
 
@@ -136,6 +136,8 @@ def arithmetic_service():
 ```
   
 ![arithmetic01](images/arithmetic01.gif)
+
+![arithmetic02](images/arithmetic02.gif)
 
 &nbsp;
 
